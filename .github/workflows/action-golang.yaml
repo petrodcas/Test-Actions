@@ -6,7 +6,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: cd into the directory
-      run: cd $GITHUB_WORKSPACE/some-golang-code
+      run: cd some-golang-code
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
@@ -14,4 +14,4 @@ jobs:
     - name: Get dependencies
       run: go get .
     - name: Run tests
-      run: go test -v ./...
+      run: go test -v
