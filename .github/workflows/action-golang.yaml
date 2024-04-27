@@ -1,13 +1,19 @@
 name: golang tests
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 jobs:
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./some-golang-code
     steps:
     - uses: actions/checkout@v4
-    - name: cd into the directory
-      run: |
-        echo "current folder: $(pwd)" && cd some-golang-code && echo "post cd folder: $(pwd)"
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
