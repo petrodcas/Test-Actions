@@ -7,7 +7,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: cd into the directory
       run: |
-        echo "current folder: $(pwd)" && cd some-golang-code
+        echo "current folder: $(pwd)" && cd some-golang-code && echo "post cd folder: $(pwd)"
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
