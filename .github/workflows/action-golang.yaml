@@ -3,9 +3,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "!.github/**"
   pull_request:
     branches:
       - main
+    paths:
+      - "!.github/**"
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -13,13 +17,13 @@ jobs:
       run:
         working-directory: ./some-golang-code
     steps:
-    - uses: actions/checkout@v4
+    - name: Bring in the code
+      uses: actions/checkout@v4
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
         go-version: '1.22.0'
     - name: Get dependencies
-      run: |
-        echo "current folder: $(pwd)" && go get .
+      run: go get .
     - name: Run tests
       run: go test -v
