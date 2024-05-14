@@ -6,8 +6,6 @@ on:
     paths:
       - "!.github/**"
   pull_request:
-    branches:
-      - main
     paths:
       - "!.github/**"
 jobs:
