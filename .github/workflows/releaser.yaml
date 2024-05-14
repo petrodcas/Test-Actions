@@ -14,9 +14,9 @@ jobs:
         goos: [linux, windows]
         goarch: [amd64, 386, arm64]
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./some-golang-code
+    # defaults:
+    #   run:
+    #     working-directory: ./some-golang-code
     env:
       GOOS: ${{ matrix.goos }}
       GOARCH: ${{ matrix.goarch }}
