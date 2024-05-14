@@ -33,4 +33,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}
-          path: /some-golang-code/greeter-$GOOS-$GOARCH${{ matrix.goos == 'windows' && '.exe' || '' }}
+          path: /some-golang-code/greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}
