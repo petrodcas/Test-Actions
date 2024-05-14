@@ -2,8 +2,8 @@ name: golang releaser
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
+    tags:
+      - "v*.*.*"
     paths:
       - "!.github/**"
 jobs:
@@ -34,25 +34,3 @@ jobs:
         with:
           files: ${{ github.workspace }}/greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}
           token: ${{ secrets.pat }}
-
-      # - name: Archive
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}
-      #     path: ${{ github.workspace }}/greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}
-      #     retention-days: 1
-  # publish:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Download artifact
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}
-  #         path: ${{ github.workspace }}
-  #     - name: Publish to GitHub Releases
-  #       uses: softprops/action-gh-release@v1
-  #       with:
-  #         files: ${{ github.workspace }}/greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
