@@ -6,8 +6,6 @@ on:
     paths:
       - "!.github/**"
   pull_request:
-    paths:
-      - "!.github/**"
 jobs:
   test:
     runs-on: ubuntu-latest
