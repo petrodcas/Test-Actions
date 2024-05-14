@@ -21,16 +21,18 @@ jobs:
       GOOS: ${{ matrix.goos }}
       GOARCH: ${{ matrix.goarch }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.22.0'
-      - name: Build
-        run: go build -o "greeter-$GOOS-$GOARCH${{ matrix.goos == 'windows' && '.exe' }}" main.go
-      - name: Archive
-        uses: actions/upload-artifact@v4
-        with:
-          name: greeter-$GOOS-$GOARCH${{ matrix.goos == 'windows' && '.exe' }}
-          path: /some-golang-code/greeter-$GOOS-$GOARCH${{ matrix.goos == 'windows' && '.exe' }}
+      - name: Test references
+        run: echo "greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}"
+      # - name: Checkout
+      #   uses: actions/checkout@v4
+      # - name: Set up Go
+      #   uses: actions/setup-go@v5
+      #   with:
+      #     go-version: '1.22.0'
+      # - name: Build
+      #   run: go build -o "greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}" main.go
+      # - name: Archive
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}
+      #     path: /some-golang-code/greeter-$GOOS-$GOARCH${{ matrix.goos == 'windows' && '.exe' || '' }}
