@@ -23,14 +23,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.22.0'
-      - name: Build
-        run: go build -o "${{ github.workspace }}/greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}" main.go
-      - name: Publish
-        uses: softprops/action-gh-release@v2
-        with:
-          files: ${{ github.workspace }}/greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}
-          token: ${{ secrets.pat }}
+      - name: Check if tag is prerelease
+        id: tag-checker
+        run: echo ::set-output name=is_prerelease::$(echo ${{ github.ref }} | grep -qE "v[0-9]+\.[0-9]+\.[0-9]+" && echo false || echo true)
+      - name: Test output
+        run: echo ${{ steps.tag-checker.outputs.is_prerelease }}
+      # - name: Set up Go
+      #   uses: actions/setup-go@v5
+      #   with:
+      #     go-version: '1.22.0'
+      # - name: Build
+      #   run: go build -o "${{ github.workspace }}/greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}" main.go
+      # - name: Publish
+      #   uses: softprops/action-gh-release@v2
+      #   with:
+      #     files: ${{ github.workspace }}/greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}
+      #     token: ${{ secrets.pat }}
+      #     prerelease: ${{}}
