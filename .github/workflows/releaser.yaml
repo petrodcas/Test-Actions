@@ -25,18 +25,18 @@ jobs:
         uses: actions/checkout@v4
       - name: Check if tag is prerelease
         id: tag-checker
-        run: echo is_prerelease=$(echo ${{ github.ref }} | grep -qE "v[0-9]+\.[0-9]+\.[0-9]+" && echo false || echo true) >> $GITHUB_OUTPUT
-      - name: Test output
-        run: echo ${{ steps.tag-checker.outputs.is_prerelease }}
-      # - name: Set up Go
-      #   uses: actions/setup-go@v5
-      #   with:
-      #     go-version: '1.22.0'
-      # - name: Build
-      #   run: go build -o "${{ github.workspace }}/greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}" main.go
-      # - name: Publish
-      #   uses: softprops/action-gh-release@v2
-      #   with:
-      #     files: ${{ github.workspace }}/greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}
-      #     token: ${{ secrets.pat }}
-      #     prerelease: ${{}}
+        run: echo is_prerelease=$(echo ${{ github.ref }} | grep -qE "^refs/tags/v[0-9]+\.[0-9]+\.[0-9]+$" && echo false || echo true) >> $GITHUB_OUTPUT
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22.0'
+      - name: Build
+        run: go build -o "${{ github.workspace }}/greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}" main.go
+      - name: Publish
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ github.workspace }}/greeter-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}
+          token: ${{ secrets.pat }}
+          prerelease: ${{ steps.tag-checker.outputs.is_prerelease }}
+          make_latest: ${{ !steps.tag-checker.outputs.is_prerelease }}
+          generate_release_notes: true
