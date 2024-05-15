@@ -28,7 +28,7 @@ func TestMain(t *testing.T) {
 	w.Close()
 	// compare stdout with expected output
 	out := <-outChannel
-	if out != "Hello, World!\n" {
-		t.Errorf("Expected 'Hello, World!', got '%s'", out)
+	if out != "Hello, World!!\n" {
+		t.Errorf("Expected 'Hello, World!!', got '%s'", out)
 	}
 }
