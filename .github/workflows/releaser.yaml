@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - "v*.*.*"
-    paths:
-      - "!.github/**"
+      - 'v*.*.*'
+    paths-ignore:
+      - '.github/**'
 jobs:
   build:
     strategy:
